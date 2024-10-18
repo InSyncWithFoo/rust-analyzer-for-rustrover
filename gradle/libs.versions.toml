@@ -1,0 +1,35 @@
+[versions]
+# libraries
+junit = "4.13.2"
+
+# plugins
+changelog = "2.2.1"
+intelliJPlatform = "2.1.0"
+kotlin = "2.0.21"
+kover = "0.8.3"
+qodana = "2024.2.3"
+
+[libraries.junit]
+group = "junit"
+name = "junit"
+version.ref = "junit"
+
+[plugins.changelog]
+id = "org.jetbrains.changelog"
+version.ref = "changelog"
+
+[plugins.intelliJPlatform]
+id = "org.jetbrains.intellij.platform"
+version.ref = "intelliJPlatform"
+
+[plugins.kotlin]
+id = "org.jetbrains.kotlin.jvm"
+version.ref = "kotlin"
+
+[plugins.kover]
+id = "org.jetbrains.kotlinx.kover"
+version.ref = "kover"
+
+[plugins.qodana]
+id = "org.jetbrains.qodana"
+version.ref = "qodana"

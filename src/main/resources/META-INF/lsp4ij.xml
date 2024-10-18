@@ -1,0 +1,18 @@
+<idea-plugin>
+	<extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+		<!--suppress PluginXmlCapitalization -->
+		<server
+			id="insyncwithfoo.rustanalyzer"
+			bundle="messages.rustanalyzer"
+			nameKey="languageServer.presentableName"
+			factoryClass="insyncwithfoo.rustanalyzer.lsp4ij.RAServerFactory"
+		/>
+		
+		<languageMapping
+			serverId="insyncwithfoo.rustanalyzer"
+			language="Rust"
+			languageId="rust"
+			documentMatcher="insyncwithfoo.rustanalyzer.lsp4ij.RAServerDocumentMatcher"
+		/>
+	</extensions>
+</idea-plugin>
