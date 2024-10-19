@@ -9,4 +9,4 @@ import insyncwithfoo.rustanalyzer.configurations.RAConfigurable
 
 @Suppress("UnstableApiUsage")
 internal class WidgetItem(lspServer: LspServer, currentFile: VirtualFile?) :
-    LspServerWidgetItem(lspServer, currentFile, Icon.TINY_16, RAConfigurable::class.java)
+    LspServerWidgetItem(lspServer, currentFile, Icon.TINY_16_DARK, RAConfigurable::class.java)
