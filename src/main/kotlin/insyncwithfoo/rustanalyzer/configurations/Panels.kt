@@ -31,6 +31,10 @@ private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Uni
     singleFileTextField().makeFlexible().apply(block)
 
 
+private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
+    singleFileTextField().makeFlexible().apply(block)
+
+
 private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
     buttonsGroup(init = block)
 
@@ -45,6 +49,11 @@ private fun RAPanel.makeComponent() = panel {
             emptyText = detected.orEmpty()
         }
         overrideCheckbox(state::executable)
+    }
+    
+    row(message("configurations.configurationFile.label")) {
+        configurationFileInput { bindText(state::configurationFile) }
+        overrideCheckbox(state::configurationFile)
     }
     
     val runningModeInputGroup = runningModeInputGroup {

@@ -1,5 +1,10 @@
 # Rust Analyzer for RustRover
 
+> [!NOTE]
+> This plugin is a work-in-progress.
+> It may or may not work.
+> Use it at your own risk.
+
 [![Build](https://github.com/InSyncWithFoo/rust-analyzer-for-rustrover/actions/workflows/build.yaml/badge.svg)][4]
 [![Docs](https://github.com/InSyncWithFoo/rust-analyzer-for-rustrover/actions/workflows/docs.yaml/badge.svg)][5]
 [![Version](https://img.shields.io/jetbrains/plugin/v/25600)][6]
@@ -10,6 +15,7 @@
 
 Why pondering between [Rust Analyzer][1] and [RustRover][2]
 when you can have both?
+
 
 ## Usage
 

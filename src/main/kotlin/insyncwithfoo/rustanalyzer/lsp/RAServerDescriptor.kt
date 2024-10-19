@@ -26,7 +26,7 @@ internal class RAServerDescriptor(project: Project, private val executable: Path
         file.isRustFile
     
     override fun createInitializationOptions() =
-        project.createInitializationOptionsObject()
+        project.createInitializationOptionsObject().also { LOGGER.info(it.toString()) }
     
     override fun createCommandLine() = GeneralCommandLine().apply {
         withWorkingDirectory(project.path)

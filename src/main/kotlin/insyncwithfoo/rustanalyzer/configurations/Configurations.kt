@@ -17,6 +17,7 @@ internal enum class RunningMode(override val label: String) : Labeled {
 
 internal class RAConfigurations : DisplayableState(), Copyable {
     var executable by string(null)
+    var configurationFile by string(null)
     var runningMode by enum(RunningMode.LSP)
 }
 
