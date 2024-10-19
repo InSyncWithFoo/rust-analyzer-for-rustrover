@@ -45,4 +45,28 @@
 			instance="insyncwithfoo.rustanalyzer.configurations.RAProjectConfigurable"
 		/>
 	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
+		<postStartupActivity
+			id="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="JavaScript">
+		<JsonSchema.ProviderFactory
+			id="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileSchemaProviderFactory"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileSchemaProviderFactory"
+		/>
+	</extensions>
+	
+	<actions>
+		<!--suppress PluginXmlCapitalization -->
+		<action
+			id="insyncwithfoo.rustanalyzer.configurationfile.RefreshConfigurationFileSchemaCache"
+			class="insyncwithfoo.rustanalyzer.configurationfile.RefreshConfigurationFileSchemaCache"
+			text="Rust Analyzer: Clear schema cache"
+			icon="AllIcons.Actions.ClearCash"
+		/>
+	</actions>
 </idea-plugin>

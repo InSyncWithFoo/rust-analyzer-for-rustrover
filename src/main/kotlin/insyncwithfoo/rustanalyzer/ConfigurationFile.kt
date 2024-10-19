@@ -6,12 +6,6 @@ import java.nio.file.Path
 import kotlin.io.path.div
 
 
-private val configurationFileNames = listOf(
-    ".rr-rust-analyzer.json",
-    "rr-rust-analyzer.json"
-)
-
-
 private val Project.specified: Path?
     get() {
         val filePath = rustAnalyzerConfigurations.configurationFile?.toPathOrNull()

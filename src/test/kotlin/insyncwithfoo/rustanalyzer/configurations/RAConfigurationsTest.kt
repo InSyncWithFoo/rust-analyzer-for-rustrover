@@ -25,9 +25,10 @@ internal class RAConfigurationsTest {
     
     @Test
     fun `test shape`() {
-        assertEquals(2, fields.size)
+        assertEquals(3, fields.size)
         
         assertEquals(null, state.executable)
+        assertEquals(null, state.configurationFile)
         assertEquals(RunningMode.LSP, state.runningMode)
     }
     
