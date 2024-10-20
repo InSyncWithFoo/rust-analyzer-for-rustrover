@@ -51,6 +51,11 @@
 			id="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
 			implementation="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
 		/>
+		
+		<fileIconProvider
+			id="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileIconProvider"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileIconProvider"
+		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="JavaScript">

@@ -157,6 +157,11 @@ jobs:
         name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
       -
+        name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: cargo, rust-analyzer
+      -
         name: Run tests
         run: |
           chmod +x ./gradlew
