@@ -4,14 +4,14 @@ import com.intellij.ide.FileIconProvider
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import insyncwithfoo.rustanalyzer.RAIcon
-import insyncwithfoo.rustanalyzer.isConfigurationFile
+import insyncwithfoo.rustanalyzer.isRRRA
 
 
-internal class ConfigurationFileIconProvider : FileIconProvider {
+internal class RRRAFileIconProvider : FileIconProvider {
     
     override fun getIcon(file: VirtualFile, flags: Int, project: Project?) =
         when {
-            file.isConfigurationFile -> RAIcon.TINY_16
+            file.isRRRA -> RAIcon.TINY_16
             else -> null
         }
     

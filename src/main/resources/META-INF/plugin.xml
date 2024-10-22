@@ -20,6 +20,7 @@
 		 Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
 	<depends>com.intellij.modules.lang</depends>
 	<depends>com.intellij.modules.platform</depends>
+	<depends>com.intellij.modules.json</depends>
 	
 	<depends optional="true" config-file="lsp4ij.xml">com.redhat.devtools.lsp4ij</depends>
 	<depends optional="true" config-file="ultimate.xml">com.intellij.modules.ultimate</depends>
@@ -47,31 +48,47 @@
 	</extensions>
 	
 	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup
+			id="insyncwithfoo.rustanalyzer.errors"
+			displayType="STICKY_BALLOON"
+			bundle="messages.rustanalyzer"
+			key="notifications.group.errors.displayName"
+		/>
+		
+		<notificationGroup
+			id="insyncwithfoo.rustanalyzer.information"
+			displayType="BALLOON"
+			bundle="messages.rustanalyzer"
+			key="notifications.group.information.displayName"
+		/>
+	</extensions>
+	
+	<extensions defaultExtensionNs="com.intellij">
 		<postStartupActivity
-			id="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
-			implementation="insyncwithfoo.rustanalyzer.configurationfile.CacheConfigurationFileSchema"
+			id="insyncwithfoo.rustanalyzer.configurationfile.CacheRRRASchema"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.CacheRRRASchema"
 		/>
 		
 		<fileIconProvider
-			id="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileIconProvider"
-			implementation="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileIconProvider"
+			id="insyncwithfoo.rustanalyzer.configurationfile.RRRAFileIconProvider"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.RRRAFileIconProvider"
 		/>
 	</extensions>
 	
 	<extensions defaultExtensionNs="JavaScript">
 		<JsonSchema.ProviderFactory
-			id="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileSchemaProviderFactory"
-			implementation="insyncwithfoo.rustanalyzer.configurationfile.ConfigurationFileSchemaProviderFactory"
+			id="insyncwithfoo.rustanalyzer.configurationfile.RRRASchemaProviderFactory"
+			implementation="insyncwithfoo.rustanalyzer.configurationfile.RRRASchemaProviderFactory"
 		/>
 	</extensions>
 	
 	<actions>
 		<!--suppress PluginXmlCapitalization -->
 		<action
-			id="insyncwithfoo.rustanalyzer.configurationfile.RefreshConfigurationFileSchemaCache"
-			class="insyncwithfoo.rustanalyzer.configurationfile.RefreshConfigurationFileSchemaCache"
+			id="insyncwithfoo.rustanalyzer.configurationfile.RefreshRRRASchemaCache"
+			class="insyncwithfoo.rustanalyzer.configurationfile.RefreshRRRASchemaCache"
 			text="Rust Analyzer: Clear schema cache"
-			icon="AllIcons.Actions.ClearCash"
+			icon="AllIcons.Actions.Refresh"
 		/>
 	</actions>
 </idea-plugin>

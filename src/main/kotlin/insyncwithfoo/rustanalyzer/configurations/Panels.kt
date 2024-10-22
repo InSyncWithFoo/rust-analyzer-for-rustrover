@@ -9,18 +9,21 @@ import com.intellij.ui.dsl.builder.Row
 import com.intellij.ui.dsl.builder.panel
 import insyncwithfoo.rustanalyzer.bindSelected
 import insyncwithfoo.rustanalyzer.bindText
+import insyncwithfoo.rustanalyzer.configurationFileNames
 import insyncwithfoo.rustanalyzer.configurations.models.AdaptivePanel
 import insyncwithfoo.rustanalyzer.configurations.models.Overrides
 import insyncwithfoo.rustanalyzer.configurations.models.PanelBasedConfigurable
 import insyncwithfoo.rustanalyzer.configurations.models.projectAndOverrides
 import insyncwithfoo.rustanalyzer.emptyText
 import insyncwithfoo.rustanalyzer.findExecutableInPath
+import insyncwithfoo.rustanalyzer.isRRRA
 import insyncwithfoo.rustanalyzer.lsp4ijIsAvailable
 import insyncwithfoo.rustanalyzer.lspIsAvailable
 import insyncwithfoo.rustanalyzer.makeFlexible
 import insyncwithfoo.rustanalyzer.message
 import insyncwithfoo.rustanalyzer.radioButtonFor
 import insyncwithfoo.rustanalyzer.singleFileTextField
+import insyncwithfoo.rustanalyzer.toPathOrNull
 
 
 private class RAPanel(state: RAConfigurations, overrides: Overrides?, project: Project?) :
@@ -32,7 +35,7 @@ private fun Row.executableInput(block: Cell<TextFieldWithBrowseButton>.() -> Uni
 
 
 private fun Row.configurationFileInput(block: Cell<TextFieldWithBrowseButton>.() -> Unit) =
-    singleFileTextField().makeFlexible().apply(block)
+    singleFileTextField().makeFlexible().comment(message("configurations.configurationFile.comment")).apply(block)
 
 
 private fun Panel.runningModeInputGroup(block: Panel.() -> Unit) =
@@ -52,7 +55,21 @@ private fun RAPanel.makeComponent() = panel {
     }
     
     row(message("configurations.configurationFile.label")) {
-        configurationFileInput { bindText(state::configurationFile) }
+        configurationFileInput {
+            bindText(state::configurationFile)
+            
+            validationOnApply { field ->
+                val value = field.text.takeIf { it.isNotBlank() } ?: return@validationOnApply null
+                val path = value.toPathOrNull()
+                val expectedFileNames = configurationFileNames.joinToString(", ")
+                
+                when {
+                    path == null -> error(message("configurations.configurationFile.invalidPath"))
+                    !path.isRRRA -> error(message("configurations.configurationFile.unknown", expectedFileNames))
+                    else -> null
+                }
+            }
+        }
         overrideCheckbox(state::configurationFile)
     }
     

@@ -45,6 +45,8 @@ repositories {
 
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
+    implementation(libs.jacksonDataformatTOML)
+    
     compileOnly(libs.kotlinxSerialization)
     testImplementation(kotlin("test"))
     testImplementation(libs.junit)

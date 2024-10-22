@@ -3,6 +3,7 @@
 annotations = "26.0.0"
 kotlinxSerialization = "1.7.3"
 junit = "4.13.2"
+jacksonDataformatTOML = "2.18.0"
 
 # plugins
 changelog = "2.2.1"
@@ -25,6 +26,11 @@ version.ref = "kotlinxSerialization"
 group = "junit"
 name = "junit"
 version.ref = "junit"
+
+[libraries.jacksonDataformatTOML]
+group = "com.fasterxml.jackson.dataformat"
+name = "jackson-dataformat-toml"
+version.ref = "jacksonDataformatTOML"
 
 [plugins.changelog]
 id = "org.jetbrains.changelog"

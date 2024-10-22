@@ -9,7 +9,7 @@ import org.junit.Test
 import kotlin.test.assertContains
 
 
-internal class ConfigurationFileSchemaTest : PlatformTestCase() {
+internal class RRRASchemaTest : PlatformTestCase() {
     
     private val originalSchemaContent by lazy {
         val arguments = listOf("rust-analyzer", "--print-config-schema")

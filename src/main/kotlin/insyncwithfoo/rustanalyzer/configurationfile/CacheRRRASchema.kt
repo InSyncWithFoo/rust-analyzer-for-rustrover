@@ -3,10 +3,17 @@ package insyncwithfoo.rustanalyzer.configurationfile
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.openapi.application.readAction
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
+import insyncwithfoo.rustanalyzer.completedAbnormally
 import insyncwithfoo.rustanalyzer.configurations.rustAnalyzerExecutable
+import insyncwithfoo.rustanalyzer.message
 import insyncwithfoo.rustanalyzer.propertiesComponent
+import insyncwithfoo.ryecharm.runInBackground
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 private typealias JSON = String
@@ -19,13 +26,16 @@ internal var Project.cachedRRRASchema: JSON?
     set(value) = propertiesComponent.setValue(STORAGE_KEY, value)
 
 
-internal class CacheConfigurationFileSchema : ProjectActivity {
+internal class CacheRRRASchema : ProjectActivity {
     
     override suspend fun execute(project: Project) {
-        readAction { retrieveAndStoreSchemaContent(project) }
+        retrieveAndStoreSchemaContent(project)
     }
     
-    private fun retrieveAndStoreSchemaContent(project: Project): String? {
+    fun executeInBackgroundThread(project: Project) =
+        project.service<Coroutine>().scope.launch { execute(project) }
+    
+    private suspend fun retrieveAndStoreSchemaContent(project: Project): String? {
         val executable = project.rustAnalyzerExecutable?.toString() ?: return null
         
         return when (val cachedSchema = project.cachedRRRASchema) {
@@ -34,19 +44,24 @@ internal class CacheConfigurationFileSchema : ProjectActivity {
         }
     }
     
-    private fun Project.retrieveNewSchemaContent(executable: String): String? {
+    private suspend fun Project.retrieveNewSchemaContent(executable: String): String? {
         val command = CapturingProcessHandler(getPrintConfigSchemaCommand(executable))
-        val output = command.runProcess(COMMAND_TIMEOUT_IN_MILLISECONDS)
+        val output = runInBackground(message("progresses.retrieveSchema")) {
+            command.runProcess(COMMAND_TIMEOUT_IN_MILLISECONDS)
+        }
         
-        if (output.isTimeout || output.isCancelled || output.exitCode != 0) {
+        if (output.completedAbnormally) {
             return null
         }
         
-        return reconstructSchema(output.stdout)
+        return readAction { reconstructSchema(output.stdout) }
     }
     
     private fun getPrintConfigSchemaCommand(executable: String) =
         GeneralCommandLine(executable, "--print-config-schema").withCharset(Charsets.UTF_8)
+    
+    @Service(Service.Level.PROJECT)
+    private class Coroutine(val scope: CoroutineScope)
     
     companion object {
         private const val COMMAND_TIMEOUT_IN_MILLISECONDS = 10_000

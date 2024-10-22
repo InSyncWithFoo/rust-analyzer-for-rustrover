@@ -6,7 +6,7 @@ import com.intellij.testFramework.LightVirtualFile
 import com.jetbrains.jsonSchema.extension.JsonSchemaFileProvider
 import com.jetbrains.jsonSchema.extension.JsonSchemaProviderFactory
 import com.jetbrains.jsonSchema.extension.SchemaType
-import insyncwithfoo.rustanalyzer.isConfigurationFile
+import insyncwithfoo.rustanalyzer.isRRRA
 import insyncwithfoo.rustanalyzer.message
 
 
@@ -19,7 +19,7 @@ private class RRRASchemaProvider(private val project: Project) : JsonSchemaFileP
     override fun getSchemaType() = SchemaType.schema
     
     override fun isAvailable(file: VirtualFile) =
-        file.isConfigurationFile && project.cachedRRRASchema != null
+        file.isRRRA && project.cachedRRRASchema != null
     
     override fun getSchemaFile() =
         LightVirtualFile("rr-rust-analyzer.schema.json", project.cachedRRRASchema!!)
@@ -27,7 +27,7 @@ private class RRRASchemaProvider(private val project: Project) : JsonSchemaFileP
 }
 
 
-internal class ConfigurationFileSchemaProviderFactory : JsonSchemaProviderFactory {
+internal class RRRASchemaProviderFactory : JsonSchemaProviderFactory {
     
     override fun getProviders(project: Project): List<JsonSchemaFileProvider> {
         return listOf(RRRASchemaProvider(project))
