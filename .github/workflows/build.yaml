@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v5
       -
         name: Gradle wrapper validation
-        uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/wrapper-validation@v5
       -
         name: Set up Java
         uses: actions/setup-java@v5
@@ -45,7 +45,7 @@ jobs:
           python-version: 3.x
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       -
         name: Export properties
         id: properties
@@ -155,7 +155,7 @@ jobs:
             xargs -I '{}' gh cache delete '{}'
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       -
         name: Set up Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -232,7 +232,7 @@ jobs:
           java-version: 21
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       -
         name: Set up IDEs cache
         uses: actions/cache@v4
@@ -313,7 +313,7 @@ jobs:
           python-version: 3.x
       -
         name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
       -
         name: Publish plugin to Nightly channel
         env:
